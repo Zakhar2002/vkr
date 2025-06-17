@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Редактировать тему</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Редактировать тему</h1>
+    <form method="POST">
+        <label>Название темы:</label><br>
+        <input type="text" name="title" value="{{ topic.title }}" required><br><br>
+        <button type="submit">Сохранить изменения</button>
+    </form>
+    <br>
+    <a href="/admin/topics">← Назад к темам</a>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Курсы</title>
+</head>
+<body>
+    <h2>Доступные курсы</h2>
+    {% for course in courses %}
+        <div style="margin-bottom: 20px;">
+            <h3>{{ course.title }}</h3>
+            <ul>
+                {% for topic in course.topics %}
+                    <li>
+                        {{ topic.title }}
+                        — <a href="{{ url_for('user_view_materials', topic_id=topic.id) }}">📘 Материалы</a>
+                        — <a href="{{ url_for('user_test', topic_id=topic.id) }}">📝 Пройти тест</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+
+    <a href="{{ url_for('user_dashboard') }}">← Назад</a>
+</body>
+</html>

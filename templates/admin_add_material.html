@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавить материал</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Добавить материал к теме: {{ topic.title }}</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        <label for="content">Заголовок:</label><br>
+        <input type="text" id="content" name="content" required><br><br>
+
+        <label for="body">Текст материала:</label><br>
+        <textarea id="body" name="body" rows="10" cols="60" placeholder="Введите основной текст материала здесь..."></textarea><br><br>
+
+        <label for="file">Прикрепить презентацию (необязательно):</label><br>
+        <input type="file" id="file" name="file"><br><br>
+
+        <button type="submit">Добавить</button>
+    </form>
+
+    <br>
+    <a href="/admin">← Назад в панель администратора</a>
+</body>
+</html>

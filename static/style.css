@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background-color: #f9f9f9;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 14px;
+    margin: 2px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-primary    { background: #007bff; color: white; }
+.btn-success    { background: #28a745; color: white; }
+.btn-danger     { background: #dc3545; color: white; }
+.btn-secondary  { background: #6c757d; color: white; }
+.btn:hover      { opacity: 0.9; }
+
+form {
+    display: inline;
+}

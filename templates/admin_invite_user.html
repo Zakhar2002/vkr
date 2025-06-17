@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Пригласить сотрудника</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Пригласить нового пользователя</h1>
+    <form method="POST">
+         <label for="full_name">ФИО сотрудника:</label><br>
+         <input type="text" name="full_name" id="full_name" required><br><br>
+
+        <label>Корпоративный email:</label><br>
+        <input type="email" name="email" required><br><br>
+        <button type="submit">Пригласить</button>
+    </form>
+
+    {% if invite_link %}
+        <p><strong>Ссылка приглашения:</strong></p>
+        <input type="text" value="{{ invite_link }}" readonly style="width:100%;">
+    {% endif %}
+
+    <br>
+    <a href="/admin">← Назад в панель администратора</a>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавить новую тему</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Добавить новую тему</h1>
+    <form method="POST" action="/admin/add_topic">
+        <label>Название темы:</label>
+        <input type="text" name="title" required>
+        <button type="submit">Сохранить</button>
+    </form>
+    <br>
+    <a href="/admin">← Назад в панель администратора</a>
+</body>
+</html>

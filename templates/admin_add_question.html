@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить вопрос к теме: {{ topic.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Добавить вопрос к теме: {{ topic.title }}</h2>
+
+    <form method="post">
+        <label>Формулировка вопроса:</label><br>
+        <input type="text" name="question" required><br><br>
+
+        <label>Варианты ответа:</label><br>
+        <input type="text" name="answer1" placeholder="Ответ 1" required><br>
+        <input type="text" name="answer2" placeholder="Ответ 2" required><br>
+        <input type="text" name="answer3" placeholder="Ответ 3" required><br>
+        <input type="text" name="answer4" placeholder="Ответ 4" required><br><br>
+
+        <label>Номер правильного ответа (1-4):</label><br>
+        <input type="number" name="correct" min="1" max="4" required><br><br>
+
+        <button type="submit" class="btn btn-success">Сохранить</button>
+    </form>
+
+    <br>
+    <a href="{{ url_for('course_topics', course_id=topic.course_id) }}">← Назад к темам</a>
+</body>
+</html>

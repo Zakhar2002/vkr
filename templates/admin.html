@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Панель администратора</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f2f2f2;
+            padding: 20px;
+            position: relative;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+        }
+
+        .logout-button a {
+            color: white;
+            background-color: #f44336;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .logout-button a:hover {
+            background-color: #d32f2f;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        .dropbtn, .staff-link {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .staff-link:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-top: 30px;">Панель администратора</h1>
+
+    <div class="top-bar">
+        <div class="dropdown">
+            <button class="dropbtn">Обучение</button>
+            <div class="dropdown-content">
+                <a href="{{ url_for('admin_courses') }}">Курсы</a>
+                <a href="/admin/materials">Материалы</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn">Прогресс</button>
+            <div class="dropdown-content">
+                <a href="{{ url_for('admin_progress') }}">Прогресс (таблица)</a>
+                <a href="{{ url_for('progress_chart') }}">Прогресс (график)</a>
+            </div>
+        </div>
+
+        <a class="staff-link" href="/admin/staff">Сотрудники</a>
+
+        <div class="logout-button">
+            <a href="/logout">Выйти</a>
+        </div>
+    </div>
+</body>
+</html>

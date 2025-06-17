@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Курсы</h2>
+<a href="{{ url_for('add_course') }}" class="btn btn-success">+ Добавить новый курс</a>
+
+{% for course in courses %}
+<div style="margin-top: 20px; padding: 15px; background: #fff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <strong>{{ course.title }}</strong><br><br>
+    <h3>{{ course['name'] }}</h3>
+    <a href="{{ url_for('edit_course', course_id=course.id) }}" class="btn btn-primary">Редактировать</a>
+    <a href="{{ url_for('course_topics', course_id=course.id) }}" class="btn btn-secondary">Темы</a>
+    <form action="{{ url_for('delete_course', course_id=course.id) }}" method="post">
+        <button class="btn btn-danger">Удалить</button>
+    </form>
+</div>
+{% endfor %}
+
+<br>
+<a href="{{ url_for('admin_panel') }}">← Назад</a>
+{% endblock %}

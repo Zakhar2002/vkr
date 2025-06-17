@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Материалы по теме: {{ topic['title'] }}</title>
+</head>
+<body>
+  <h1>Материалы по теме: {{ topic['title'] }}</h1>
+  <ul>
+    {% for m in materials %}
+      <li>
+        <strong>{{ m['content'] }}</strong><br>
+
+        {% if m['body']|trim %}
+          <p>{{ m['body'] }}</p>
+        {% endif %}
+
+        {% if m['file_path'] %}
+          <a href="{{ url_for('static', filename=m['file_path'].replace('\\', '/') ) }}" download>Скачать</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p><a href="{{ url_for('course_topics', course_id=topic['course_id']) }}">← Назад к темам</a></p>
+</body>
+</html>

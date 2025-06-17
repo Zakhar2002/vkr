@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <a href="{{ url_for('export_progress_excel') }}" class="button">📥 Скачать отчёт (.xlsx)</a>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 10px;
+            background-color: #4285f4;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+</style>
+    <title>Прогресс пользователей</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .yes {
+            color: green;
+            font-weight: bold;
+        }
+        .no {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Прогресс пользователей</h1>
+        <table>
+            <tr>
+                <th>ФИО</th>
+                <th>Курс</th>
+                <th>Материалы просмотрены</th>
+                <th>Тест пройден</th>
+                <th>Результат теста</th>
+            </tr>
+            {% for row in progress_data %}
+                <tr>
+                    <td>{{ row.full_name }}</td>
+                    <td>{{ row.course }}</td>  <!-- или row.title, если ты в SELECT пишешь title -->
+                    <td>{{ 'Да' if row.viewed_materials else 'Нет' }}</td>
+                    <td>{{ 'Да' if row.passed_test else 'Нет' }}</td>
+                    <td>
+                        {% if row.test_score is not none %}
+                            {{ row.test_score }}%
+                        {% else %}
+                        —
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <a href="{{ url_for('admin_panel') }}">← Назад в панель администратора</a>
+    </div>
+</body>
+</html>

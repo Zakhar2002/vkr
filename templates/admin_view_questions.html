@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Вопросы по теме: {{ topic.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Вопросы по теме: {{ topic.title }}</h2>
+
+    <a href="{{ url_for('add_question', topic_id=topic.id) }}" class="btn btn-success">+ Добавить вопрос</a>
+
+    {% if questions %}
+    <table>
+        <thead>
+            <tr>
+                <th>Вопрос</th>
+                <th>Ответы</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for question in questions %}
+            <tr>
+                <td>{{ question.text }}</td>
+                <td>
+                    <ul>
+                        {% for answer in question.answers %}
+                            <li {% if answer.is_correct %}style="font-weight:bold; color:green;"{% endif %}>
+                                {{ answer.text }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <!-- Здесь могут быть кнопки редактирования в будущем -->
+                    <form method="post" action="{{ url_for('delete_question', question_id=question.id) }}">
+                        <button class="btn btn-danger">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Пока нет ни одного вопроса.</p>
+    {% endif %}
+
+    <br>
+    <a href="{{ url_for('course_topics', course_id=topic.course_id) }}">← Назад к темам</a>
+</body>
+</html>

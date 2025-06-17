@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Курсы</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .topic-item {
+            border: 1px solid #ccc;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .topic-actions {
+            margin-top: 10px;
+        }
+
+        .topic-actions form {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .topic-actions a, .topic-actions button {
+            display: inline-block;
+            padding: 6px 10px;
+            font-size: 14px;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .topic-actions a {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .topic-actions a:hover {
+            background-color: #45a049;
+        }
+
+        .topic-actions button {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .topic-actions button:hover {
+            background-color: #d32f2f;
+        }
+
+        .top-controls {
+            margin-bottom: 20px;
+        }
+
+        .top-controls a {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+
+        .top-controls a:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+</head>
+<body>
+    <h1>Курсы</h1>
+
+    <div class="top-controls">
+        <a href="{{ url_for('add_topic') }}">+ Добавить новый курс</a>
+    </div>
+
+    {% for topic in topics %}
+        <div class="topic-item">
+            <strong>{{ topic.title }}</strong>
+            <div class="topic-actions">
+                <a href="{{ url_for('edit_topic', topic_id=topic.id) }}">Редактировать</a>
+                <a href="{{ url_for('add_material', topic_id=topic.id) }}">Добавить материал</a>
+                <a href="{{ url_for('add_question', topic_id=topic.id) }}">Добавить тест</a>
+
+                <form action="{{ url_for('delete_topic', topic_id=topic.id) }}" method="POST" onsubmit="return confirm('Удалить эту тему?');">
+                    <button type="submit">Удалить</button>
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+
+    <br>
+    <a href="/admin">← Назад</a>
+</body>
+</html>

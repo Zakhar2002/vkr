@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Доступные курсы</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 30px; }
+        h1 { text-align: center; }
+        .course { margin-bottom: 30px; }
+        .course h2 { color: #333; margin-bottom: 10px; }
+        .topic { margin-left: 20px; margin-bottom: 10px; }
+        .topic a {
+            background-color: #4CAF50;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .topic a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Доступные курсы</h1>
+
+    {% set current_course = None %}
+    {% for item in items %}
+        {% if item.course_title != current_course %}
+            {% if not loop.first %}</div>{% endif %}
+            <div class="course">
+                <h2>{{ item.course_title }}</h2>
+            {% set current_course = item.course_title %}
+        {% endif %}
+
+        <div class="topic">
+            <strong>{{ item.topic_title }}</strong>
+            <a href="{{ url_for('view_course_materials', topic_id=item.topic_id) }}">Открыть материалы</a>
+        </div>
+
+        {% if loop.last %}</div>{% endif %}
+    {% endfor %}
+
+    <br>
+    <a href="{{ url_for('logout') }}">Выйти</a>
+</body>
+</html>

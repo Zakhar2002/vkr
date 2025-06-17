@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Приглашённые сотрудники</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function toggleEdit(id) {
+            const view = document.getElementById("view-" + id);
+            const edit = document.getElementById("edit-" + id);
+            if (view.style.display === "none") {
+                view.style.display = "block";
+                edit.style.display = "none";
+            } else {
+                view.style.display = "none";
+                edit.style.display = "block";
+            }
+        }
+</script>
+    <script>
+        function confirmDelete(formId) {
+            if (confirm('Вы действительно хотите удалить этого пользователя?')) {
+                document.getElementById(formId).submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Список приглашённых сотрудников</h1>
+
+    {% if users %}
+        <table border="1" cellpadding="8">
+            <tr>
+                <th>Email</th>
+                <th>ФИО</th>
+                <th>Подтверждён</th>
+                <th>Приглашение</th>
+                <th>Удаление</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.email }}</td>
+                <td>
+                    <div id="view-{{ user.id }}">
+                        {{ user.full_name or '' }}
+                        <button onclick="toggleEdit({{ user.id }})" type="button">Изменить</button>
+                    </div>
+                    <div id="edit-{{ user.id }}" style="display: none;">
+                        <form method="POST" action="{{ url_for('update_full_name') }}">
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <input type="text" name="full_name" value="{{ user.full_name or '' }}" style="width: 90%;">
+                            <button type="submit">Сохранить</button>
+                            <button type="button" onclick="toggleEdit({{ user.id }})">Отмена</button>
+                        </form>
+                    </div>
+                </td>
+                <td>{{ 'Да' if user.is_confirmed else 'Нет' }}</td>
+                <td>
+                    {% if not user.is_confirmed %}
+                        <input type="text" readonly value="{{ request.host_url }}invite/{{ user.invite_token }}" style="width:100%;">
+                    {% else %}
+                        —
+                    {% endif %}
+                </td>
+                <td>
+                    {% if not user.is_confirmed %}
+                        <form id="delete-form-{{ user.id }}" action="{{ url_for('delete_invited_user', user_id=user.id) }}" method="POST" style="display:inline;">
+                            <button type="button" onclick="confirmDelete('delete-form-{{ user.id }}')">Удалить</button>
+                        </form>
+                    {% else %}
+                        —
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Пользователи не найдены.</p>
+    {% endif %}
+
+    <br>
+    <a href="/admin/staff">← Назад</a>
+</body>
+</html>

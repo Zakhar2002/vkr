@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Тест по теме</title>
+</head>
+<body>
+    <h2>Тест</h2>
+    <form method="post">
+        {% for q in questions %}
+            <div>
+                <p><strong>{{ loop.index }}. {{ q.question }}</strong></p>
+                {% for a in q.answers %}
+                    <label>
+                        <input type="radio" name="question_{{ q.id }}" value="{{ a.id }}" required>
+                        {{ a.text }}
+                    </label><br>
+                {% endfor %}
+            </div>
+            <br>
+        {% endfor %}
+        <button type="submit">Отправить</button>
+    </form>
+    <br>
+    <a href="{{ url_for('user_courses') }}">← Назад к курсам</a>
+</body>
+</html>

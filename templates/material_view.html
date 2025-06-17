@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Материалы курса</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Материалы по теме: {{ topic }}</h1>
+
+        {% if materials %}
+            <ul>
+                {% for material in materials %}
+                    <li style="margin-bottom: 20px;">
+                        <h3>{{ material.title }}</h3>
+
+                        {% if material.file_path and material.file_path.endswith('.pdf') %}
+                            <iframe src="{{ url_for('static', filename=material.file_path.replace('static/', '')) }}" width="100%" height="500px"></iframe>
+                        {% else %}
+                            <p><em>Файл не прикреплён или не PDF.</em></p>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Нет материалов для этого курса.</p>
+        {% endif %}
+
+        <br>
+        <a href="{{ url_for('admin_materials') }}">← Назад к материалам</a>
+    </div>
+</body>
+</html>

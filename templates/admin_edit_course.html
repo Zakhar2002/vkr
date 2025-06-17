@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать курс</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        label, input {
+            display: block;
+            width: 100%%;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+        }
+
+        input[type="submit"] {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0b7dda;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Редактировать курс</h1>
+    <form method="post">
+        <label for="title">Новое название:</label>
+        <input type="text" name="title" value="{{ course.title }}" required>
+        <input type="submit" value="Сохранить">
+    </form>
+    <a href="{{ url_for('admin_courses') }}">← Назад к списку курсов</a>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавить тему в курс: {{ course.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Добавить тему в курс: {{ course.title }}</h2>
+
+    <form method="post">
+        <label>Название темы:</label><br>
+        <input type="text" name="title" required><br><br>
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <br>
+    <a href="{{ url_for('course_topics', course_id=course.id) }}">← Назад к темам курса</a>
+</body>
+</html>
