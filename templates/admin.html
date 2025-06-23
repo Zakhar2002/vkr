@@ -16,41 +16,31 @@
             background-color: #f2f2f2;
             padding: 20px;
             position: relative;
+            flex-wrap: wrap;
         }
 
-        .logout-button {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-        }
-
-        .logout-button a {
-            color: white;
-            background-color: #f44336;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 4px;
-        }
-
-        .logout-button a:hover {
-            background-color: #d32f2f;
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            margin: 0 15px;
-        }
-
-        .dropbtn, .staff-link {
+        .button {
             background-color: #4CAF50;
             color: white;
-            padding: 12px 20px;
+            padding: 12px 30px;
             font-size: 16px;
             border: none;
             cursor: pointer;
             border-radius: 4px;
             text-decoration: none;
+            min-width: 160px;
+            text-align: center;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
         }
 
         .dropdown-content {
@@ -77,36 +67,51 @@
             display: block;
         }
 
-        .staff-link:hover {
-            background-color: #45a049;
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+        }
+
+        .logout-button a {
+            color: white;
+            background-color: #f44336;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .logout-button a:hover {
+            background-color: #d32f2f;
         }
     </style>
 </head>
 <body>
+
     <h1 style="text-align: center; margin-top: 30px;">Панель администратора</h1>
 
     <div class="top-bar">
         <div class="dropdown">
-            <button class="dropbtn">Обучение</button>
+            <a class="button">Обучение</a>
             <div class="dropdown-content">
                 <a href="{{ url_for('admin_courses') }}">Курсы</a>
                 <a href="/admin/materials">Материалы</a>
             </div>
         </div>
 
-        <div class="dropdown">
-            <button class="dropbtn">Прогресс</button>
-            <div class="dropdown-content">
-                <a href="{{ url_for('admin_progress') }}">Прогресс (таблица)</a>
-                <a href="{{ url_for('progress_chart') }}">Прогресс (график)</a>
-            </div>
-        </div>
-
-        <a class="staff-link" href="/admin/staff">Сотрудники</a>
+        <a href="{{ url_for('admin_progress') }}" class="button">Прогресс</a>
+        <a href="/admin/staff" class="button">Сотрудники</a>
 
         <div class="logout-button">
             <a href="/logout">Выйти</a>
         </div>
     </div>
+
+    <div style="text-align: center; margin-top: 40px;">
+        <img src="{{ url_for('static', filename='images/sealedair_logo.png') }}"
+             alt="Sealed Air Logo"
+             style="height: 220px;">
+    </div>
+    
 </body>
 </html>

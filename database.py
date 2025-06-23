@@ -1,15 +1,15 @@
 import pymysql
 from flask import g
-from config import DB_CONFIG
 
 def get_db():
     if 'db' not in g:
         g.db = pymysql.connect(
-            host=DB_CONFIG['host'],
-            user=DB_CONFIG['user'],
-            password=DB_CONFIG['password'],
-            database=DB_CONFIG['database'],
-            port=DB_CONFIG.get('port', 3307),
+            host='sql7.freesqldatabase.com',
+            user='sql7786198',
+            password='pm8haR585d',
+            database='sql7786198',
+            port=3306,
+            charset='utf8mb4',
             cursorclass=pymysql.cursors.DictCursor
         )
     return g.db

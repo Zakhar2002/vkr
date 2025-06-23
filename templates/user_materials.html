@@ -1,27 +1,88 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Материалы по теме: {{ topic['title'] }}</title>
+    <meta charset="UTF-8">
+    <title>Материалы по теме: {{ topic['title'] }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px auto;
+            max-width: 900px;
+            padding: 0 20px;
+            background-color: #fdfdfd;
+            color: #333;
+        }
+
+        h1 {
+            color: #222;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 25px;
+        }
+
+        p {
+            margin: 10px 0;
+            text-align: justify;
+        }
+
+        a.download-link {
+            display: inline-block;
+            margin-top: 5px;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        a.download-link:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        strong {
+            font-size: 1.1em;
+            color: #000;
+        }
+    </style>
 </head>
 <body>
-  <h1>Материалы по теме: {{ topic['title'] }}</h1>
-  <ul>
+
+    <h1>Материалы по теме: {{ topic['title'] }}</h1>
+
+    <ul>
     {% for m in materials %}
-      <li>
-        <strong>{{ m['content'] }}</strong><br>
+        <li>
+            <strong>{{ m['content'] }}</strong><br>
 
-        {% if m['body']|trim %}
-          <p>{{ m['body'] }}</p>
-        {% endif %}
+            {% if m['body']|trim %}
+                <p>{{ m['body'] }}</p>
+            {% endif %}
 
-        {% if m['file_path'] %}
-          <a href="{{ url_for('static', filename=m['file_path'].replace('\\', '/') ) }}" download>Скачать</a>
-        {% endif %}
-      </li>
+            {% if m['file_path'] %}
+                <a class="download-link" href="{{ url_for('static', filename=m['file_path'].replace('\\', '/')) }}" download>📎 Скачать файл</a>
+            {% endif %}
+        </li>
     {% endfor %}
-  </ul>
+    </ul>
 
-  <p><a href="{{ url_for('course_topics', course_id=topic['course_id']) }}">← Назад к темам</a></p>
+    <a href="{{ url_for('course_topics', course_id=topic.course_id) }}" class="back-link">← Назад к темам</a>
+
 </body>
 </html>

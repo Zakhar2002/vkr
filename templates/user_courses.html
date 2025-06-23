@@ -2,25 +2,91 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Курсы</title>
+    <title>Доступные курсы</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            font-size: 28px;
+            color: #333;
+        }
+
+        .course-block {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .course-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .topic {
+            margin-bottom: 15px;
+        }
+
+        .topic-title {
+            display: inline-block;
+            min-width: 200px;
+            font-weight: normal;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            margin-left: 10px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            color: #4CAF50;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+
     <h2>Доступные курсы</h2>
+
     {% for course in courses %}
-        <div style="margin-bottom: 20px;">
-            <h3>{{ course.title }}</h3>
-            <ul>
-                {% for topic in course.topics %}
-                    <li>
-                        {{ topic.title }}
-                        — <a href="{{ url_for('user_view_materials', topic_id=topic.id) }}">📘 Материалы</a>
-                        — <a href="{{ url_for('user_test', topic_id=topic.id) }}">📝 Пройти тест</a>
-                    </li>
-                {% endfor %}
-            </ul>
+    <div class="course-block">
+        <div class="course-title">{{ course.name }}</div>
+        {% for topic in course.topics %}
+        <div class="topic">
+            <span class="topic-title">{{ topic.title }}</span>
+            <a href="{{ url_for('user_view_materials', topic_id=topic.id) }}" class="btn">📘 Материалы</a>
+            <a href="{{ url_for('user_test', topic_id=topic.id) }}" class="btn">📝 Пройти тест</a>
         </div>
+        {% endfor %}
+    </div>
     {% endfor %}
 
-    <a href="{{ url_for('user_dashboard') }}">← Назад</a>
+    <a href="{{ url_for('user_dashboard') }}" class="back-link">← Назад</a>
+
 </body>
 </html>

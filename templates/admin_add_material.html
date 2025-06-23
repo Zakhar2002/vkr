@@ -1,26 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
+    <meta charset="UTF-8">
     <title>Добавить материал</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 15px;
+            display: block;
+        }
+
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+
+<div class="container">
     <h1>Добавить материал к теме: {{ topic.title }}</h1>
 
     <form method="POST" enctype="multipart/form-data">
-        <label for="content">Заголовок:</label><br>
-        <input type="text" id="content" name="content" required><br><br>
+        <label for="content">Заголовок:</label>
+        <input type="text" id="content" name="content" required>
 
-        <label for="body">Текст материала:</label><br>
-        <textarea id="body" name="body" rows="10" cols="60" placeholder="Введите основной текст материала здесь..."></textarea><br><br>
+        <label for="body">Текст материала:</label>
+        <textarea id="body" name="body" placeholder="Введите основной текст материала здесь..." required></textarea>
 
-        <label for="file">Прикрепить презентацию (необязательно):</label><br>
-        <input type="file" id="file" name="file"><br><br>
+        <label for="file">Прикрепить презентацию (необязательно):</label>
+        <input type="file" id="file" name="file">
 
-        <button type="submit">Добавить</button>
+        <button type="submit" class="btn">Добавить</button>
     </form>
 
-    <br>
-    <a href="/admin">← Назад в панель администратора</a>
+    <a href="{{ url_for('admin_topics') }}" class="back-link">← Назад в панель администратора</a>
+</div>
+
 </body>
 </html>

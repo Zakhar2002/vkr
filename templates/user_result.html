@@ -2,11 +2,59 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Результат</title>
+    <title>Результат теста</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f6f6f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .result-container {
+            background-color: white;
+            padding: 40px 60px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .result-container h2 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        .result-container .percent {
+            font-size: 48px;
+            color: #4CAF50;
+            margin: 20px 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h2>Ваш результат: {{ score }}%</h2>
-    <br>
-    <a href="{{ url_for('user_courses') }}">← Назад к курсам</a>
+
+<div class="result-container">
+    <h2>Ваш результат:</h2>
+    <div class="percent">{{ score }}%</div>
+    <a href="{{ url_for('user_courses') }}" class="back-link">← Назад к курсам</a>
+</div>
+
 </body>
 </html>

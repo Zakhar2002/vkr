@@ -2,9 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from database import get_db
 from helpers import require_login, require_admin
 import mysql.connector
+import pymysql
 import secrets  
 import os
-import pymysql.cursors  # вверху файла
 import openpyxl
 from werkzeug.utils import secure_filename
 from flask import send_file
@@ -677,21 +677,18 @@ def user_test(topic_id):
 @app.route('/user/topic/<int:topic_id>/materials')
 def user_view_materials(topic_id):
     db = get_db()
-    cursor = db.cursor()
+    cursor = db.cursor(pymysql.cursors.DictCursor)  # обязательно словарь
 
-    # Получаем информацию о теме
     cursor.execute("SELECT id, title, course_id FROM topics WHERE id = %s", (topic_id,))
     topic = cursor.fetchone()
 
-    # Получаем все материалы по теме
+    if not topic:
+        return "Тема не найдена", 404
+
     cursor.execute("SELECT content, body, file_path FROM materials WHERE topic_id = %s", (topic_id,))
     materials = cursor.fetchall()
 
-    return render_template(
-        "user_materials.html",
-        materials=materials,
-        topic=topic
-    )
+    return render_template("user_materials.html", materials=materials, topic=topic)
 
 @app.route("/courses/<int:topic_id>/materials")
 @require_login

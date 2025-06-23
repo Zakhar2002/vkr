@@ -3,25 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <title>Тест по теме</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 40px;
+            color: #333;
+        }
+
+        .test-container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            margin-bottom: 30px;
+        }
+
+        .question strong {
+            font-size: 17px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            background-color: #f0f0f0;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        label:hover {
+            background-color: #e2e2e2;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            display: block;
+            margin: 30px auto 10px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #4CAF50;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+
+<div class="test-container">
     <h2>Тест</h2>
+
     <form method="post">
         {% for q in questions %}
-            <div>
-                <p><strong>{{ loop.index }}. {{ q.question }}</strong></p>
-                {% for a in q.answers %}
-                    <label>
-                        <input type="radio" name="question_{{ q.id }}" value="{{ a.id }}" required>
-                        {{ a.text }}
-                    </label><br>
-                {% endfor %}
-            </div>
-            <br>
+        <div class="question">
+            <strong>{{ loop.index }}. {{ q.question }}</strong>
+
+            {% for a in q.answers %}
+            <label>
+                <input type="radio" name="question_{{ q.id }}" value="{{ a.id }}" required>
+                {{ a.text }}
+            </label>
+            {% endfor %}
+        </div>
         {% endfor %}
-        <button type="submit">Отправить</button>
+
+        <button type="submit" class="submit-btn">Отправить</button>
     </form>
-    <br>
-    <a href="{{ url_for('user_courses') }}">← Назад к курсам</a>
+
+    <div style="text-align:center;">
+        <a href="{{ url_for('user_courses') }}" class="back-link">← Назад к курсам</a>
+    </div>
+</div>
+
 </body>
 </html>
